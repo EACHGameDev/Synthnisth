@@ -13,12 +13,16 @@ public class CharacterBehaviours : MovingCharacter {
 	private bool _invencibleRush, _swordBomb;
 	float jumpForce = 550f;
 	KeyCode jump = KeyCode.S;//botão pra pular
-	//Power effect;
+                             //Power effect;
 
-	void Start () {
+    AudioManager ams;    
+   
+
+    void Start () {
 		speed = 20f;
-	}
-
+        ams = AudioManager.instance;
+    }
+    
 	void FixedUpdate(){
 		if (transform.position.y >= 200)
 			rb.velocity = new Vector2 (0, rb.velocity.y * (-1));
@@ -41,6 +45,7 @@ public class CharacterBehaviours : MovingCharacter {
 	void Jump(){//esse código controla o pulo por um sistema dinâmico de contagem simples. O valor de jumps é zerado no código foot
 		if(Input.GetKeyDown(jump) && jumps < 2){//aqui o máximo de pulos está apenas como 1 pois, por algum motivo, o valor de jumps não implementa no primeiro pulo
 			rb.AddForce(new Vector2(rb.velocity.x, 0));
+             ams.playSound("jump");
 			rb.AddForce(new Vector2(rb.velocity.x, jumpForce));
 			jumps++;
 		}

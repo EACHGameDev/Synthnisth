@@ -10,9 +10,13 @@ public class Sword: MonoBehaviour {
 	public List<Pigeon> target;
 	private Ray2D ray;
 	private RaycastHit2D hit;
+    AudioManager ams;
+    
 
-	void FixedUpdate(){
+    void FixedUpdate(){
 		if (Input.GetKeyDown (strike) && striking == false /*&& character.knockBack <= 0*/) {
+            ams = AudioManager.instance;
+            ams.playSound("attack");
 			if (character.enemiesOnScreen != null) 
 				foreach (Pigeon p in character.enemiesOnScreen) {
 					Debug.DrawLine (transform.position, p.transform.position, Color.black);

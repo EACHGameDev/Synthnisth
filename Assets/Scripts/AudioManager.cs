@@ -5,8 +5,7 @@ using UnityEngine.Audio;
 using System.IO;
 using System.Linq;
 
-public class AudioManager : MonoBehaviour {
-    public AudioSource sfx;
+public class AudioManager : MonoBehaviour {    
     public static AudioSource tema1;
     public static AudioSource tema2;
     public static AudioSource tema3;
@@ -26,17 +25,23 @@ public class AudioManager : MonoBehaviour {
     
  
     void Awake () {
-        if (instance = null)
+        if (instance == null)
         {
             //Instancia as 3 musicas ao mesmo tempo e da start na primeira
             instance = this;
+            GameObject go = new GameObject("Som:Tema1");
+            AudioSource tema1 = go.AddComponent<AudioSource>();
+            tema1.clip = theme1;
             tema1.volume = 1.2f;
             tema1.Play();
             currentPlaying = 1;
+            GameObject go2 = new GameObject("Som:Tema1");
+            AudioSource tema2 = go2.AddComponent<AudioSource>();
+            tema2.clip = theme2;
             tema2.volume = 0.0f;
             tema2.Play();
-            tema3.volume = 0.0f;
-            tema3.Play();
+            
+           
         }
         else if(instance!=this)
         {
@@ -68,9 +73,12 @@ public class AudioManager : MonoBehaviour {
         {
             atual = morte2;
         }
-
+        GameObject go = new GameObject("Audio: " + s);
+        AudioSource sfx = go.AddComponent<AudioSource>();
         sfx.clip = atual;
         sfx.Play();
+        Destroy(go, atual.length);
+        return;
     }
     public void playTheme(int number)
     {
